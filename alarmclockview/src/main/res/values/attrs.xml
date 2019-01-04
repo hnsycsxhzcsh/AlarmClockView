@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AlarmClockView">
+        <attr name="outerCircleColor" format="reference|color" />
+        <attr name="innerCircleColor" format="reference|color" />
+        <attr name="secondHandColor" format="reference|color" />
+        <attr name="minuteHandColor" format="reference|color" />
+        <attr name="hourHandColor" format="reference|color" />
+        <attr name="minuteScaleColor" format="reference|color" />
+        <attr name="scaleColor" format="reference|color" />
+        <attr name="dateValueColor" format="reference|color" />
+        <attr name="isShowTime" format="boolean" />
+
+
+    </declare-styleable>
+
+</resources>
