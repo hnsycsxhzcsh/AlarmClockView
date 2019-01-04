@@ -7,7 +7,7 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
 <img src="https://github.com/hnsycsxhzcsh/AlarmClockView/blob/master/myres/alarmclock.gif" width="300" height="612">
 
-项目中引用的方法：
+项目中引用的步骤：
 
 步骤1.将JitPack存储库添加到构建文件中
 
