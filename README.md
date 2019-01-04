@@ -29,7 +29,7 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
 步骤3. 布局中引用控件
 
-	 <com.alarmclockview.AlarmClockView
+	<com.alarmclockview.AlarmClockView
      	   android:id="@+id/clock"
            android:layout_width="match_parent"
       	   android:layout_height="match_parent"/>
