@@ -11,8 +11,6 @@
         <attr name="dateValueColor" format="reference|color" />
         <attr name="isShowTime" format="boolean" />
         <attr name="proportion" format="float" />
-
-
     </declare-styleable>
 
 </resources>

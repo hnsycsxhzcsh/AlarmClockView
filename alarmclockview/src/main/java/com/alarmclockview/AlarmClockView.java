@@ -186,7 +186,6 @@ public class AlarmClockView extends View {
 
             array.recycle();
         }
-
     }
 
     @Override
@@ -194,7 +193,7 @@ public class AlarmClockView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mWid = w;
         mHei = h;
-        //使闹钟的宽为控件宽的6/8;
+        //使闹钟的宽为控件宽的mProportion;
         mClockWid = (int) (w * mProportion);
         mOuterRadius = mClockWid / 2;
         mInnerRadius = mOuterRadius - mSpace;
@@ -221,9 +220,7 @@ public class AlarmClockView extends View {
         drawInnerCircle(canvas);
 
         //画刻度
-        canvas.save();
         drawTickMark(canvas);
-        canvas.restore();
 
         //画刻度值
         drawScaleValue(canvas);
@@ -383,6 +380,8 @@ public class AlarmClockView extends View {
      * @param canvas
      */
     private void drawTickMark(Canvas canvas) {
+        canvas.save();
+
         for (int i = 0; i < 60; i++) {
             if (i % 5 == 0) {
                 mPaint.setColor(mPointScaleColor);
@@ -405,6 +404,7 @@ public class AlarmClockView extends View {
             canvas.rotate(6, mCenterX, mCenterY);
         }
 
+        canvas.restore();
     }
 
     /**

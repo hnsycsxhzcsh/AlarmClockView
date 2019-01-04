@@ -8,8 +8,8 @@
 
     <com.alarmclockview.AlarmClockView
         android:id="@+id/clock"
-        app:proportion="0.8"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+        app:proportion="0.6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

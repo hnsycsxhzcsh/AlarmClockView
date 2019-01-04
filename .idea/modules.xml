@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AlarmClockView.iml" filepath="$PROJECT_DIR$/AlarmClockView.iml" />
+      <module fileurl="file://E:\git\AlarmClockView\AlarmClockView.iml" filepath="E:\git\AlarmClockView\AlarmClockView.iml" />
       <module fileurl="file://$PROJECT_DIR$/alarmclockview/alarmclockview.iml" filepath="$PROJECT_DIR$/alarmclockview/alarmclockview.iml" />
+      <module fileurl="file://E:\git\AlarmClockView\alarmclockview\alarmclockview.iml" filepath="E:\git\AlarmClockView\alarmclockview\alarmclockview.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\git\AlarmClockView\app\app.iml" filepath="E:\git\AlarmClockView\app\app.iml" />
     </modules>
   </component>
 </project>
