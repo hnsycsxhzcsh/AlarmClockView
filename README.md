@@ -37,8 +37,8 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 步骤4. activity中添加监听
 
     mClock = findViewById(R.id.clock);
-          //运行闹钟
-           mClock.start(new TimeChangeListener() {
+    //运行闹钟
+    mClock.start(new TimeChangeListener() {
              @Override
              public void onTimeChange(Calendar calendar) {
                   //根据calendar获取当前时间
