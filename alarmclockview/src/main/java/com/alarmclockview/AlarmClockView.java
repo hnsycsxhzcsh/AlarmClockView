@@ -131,6 +131,10 @@ public class AlarmClockView extends View {
      * 时间监听
      */
     private TimeChangeListener listener;
+    /**
+     * 时钟占空间整体的比例
+     */
+    private float mProportion;
 
     /**
      * handler用来处理定时任务，没隔一秒刷新一次
@@ -143,7 +147,6 @@ public class AlarmClockView extends View {
             initCurrentTime();
         }
     };
-
 
     public AlarmClockView(Context context) {
         this(context, null);
@@ -176,6 +179,10 @@ public class AlarmClockView extends View {
             mPointScaleColor = array.getColor(R.styleable.AlarmClockView_scaleColor, getResources().getColor(R.color.black));
             mDateValueColor = array.getColor(R.styleable.AlarmClockView_dateValueColor, getResources().getColor(R.color.black));
             mIsShowTime = array.getBoolean(R.styleable.AlarmClockView_isShowTime, true);
+            mProportion = array.getFloat(R.styleable.AlarmClockView_proportion, (float) 0.75);
+            if (mProportion > 1 || mProportion < 0) {
+                mProportion = (float) 0.75;
+            }
 
             array.recycle();
         }
@@ -188,7 +195,7 @@ public class AlarmClockView extends View {
         mWid = w;
         mHei = h;
         //使闹钟的宽为控件宽的6/8;
-        mClockWid = w * 6 / 8;
+        mClockWid = (int) (w * mProportion);
         mOuterRadius = mClockWid / 2;
         mInnerRadius = mOuterRadius - mSpace;
         mCenterX = w / 2;
