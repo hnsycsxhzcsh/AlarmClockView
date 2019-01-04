@@ -13,7 +13,7 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
 项目的根build.gradle中添加以下代码：
 
- allprojects {
+ 	allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
@@ -29,10 +29,10 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
 步骤3. 布局中引用控件
 
- <com.alarmclockview.AlarmClockView
-        android:id="@+id/clock"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+	 <com.alarmclockview.AlarmClockView
+     	   android:id="@+id/clock"
+           android:layout_width="match_parent"
+      	   android:layout_height="match_parent"/>
 
 步骤4. activity中添加监听
 
