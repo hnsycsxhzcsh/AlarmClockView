@@ -49,9 +49,9 @@ public class AlarmClockView extends View {
     private int mYear;
     private boolean mIsShowTime;
     private String mWeekStr;
+    private TimeChangeListener listener;
 
     private Handler mHandler = new Handler();
-
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -152,7 +152,7 @@ public class AlarmClockView extends View {
         Paint.FontMetricsInt fm = mPaint.getFontMetricsInt();
         int baseLineY = mCenterY + mOuterRadius - fm.top + 2 * mSpace;
 
-        String time = "" + mYear + "年" + (mMonth + 1) + "月" + mDay + "日，" + mWeekStr + "，" + mHour + "点" + mMinute + "分" + mSecond + "秒";
+        String time = "" + mYear + "年" + (mMonth + 1) + "月" + mDay + "日" + mWeekStr + mHour + "点" + mMinute + "分" + mSecond + "秒";
         canvas.drawText(time, mCenterX, baseLineY, mPaint);
     }
 
@@ -327,10 +327,14 @@ public class AlarmClockView extends View {
 
         System.out.println("现在时间：小时：" + mHour + ",分钟：" + mMinute + ",秒：" + mSecond);
 
+        if (listener != null) {
+            listener.onTimeChange(mCalendar);
+        }
         invalidate();
     }
 
-    public void start() {
+    public void start(TimeChangeListener listener) {
+        this.listener = listener;
         mHandler.postDelayed(runnable, 1000);
         initCurrentTime();
     }

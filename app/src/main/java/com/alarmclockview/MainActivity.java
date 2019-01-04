@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     private AlarmClockView mClock;
@@ -14,11 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mClock = findViewById(R.id.clock);
-
-        mClock.setOnClickListener(new View.OnClickListener() {
+        //运行闹钟
+        mClock.start(new TimeChangeListener() {
             @Override
-            public void onClick(View v) {
-                mClock.start();
+            public void onTimeChange(Calendar calendar) {
+                //根据calendar获取当前时间
+
             }
         });
     }
