@@ -21,36 +21,120 @@ import java.util.Calendar;
 
 public class AlarmClockView extends View {
 
+    /**
+     * 秒针颜色
+     */
     private int mSecondHandColor;
+    /**
+     * 分针颜色
+     */
     private int mMinuteHandColor;
+    /**
+     * 时针颜色
+     */
     private int mHourHandColor;
+    /**
+     * 分钟刻度颜色
+     */
     private int mMinuteScaleColor;
+    /**
+     * 当分钟是5的倍数时刻度的颜色
+     */
     private int mPointScaleColor;
+    /**
+     * 时钟底部时间文本颜色
+     */
     private int mDateValueColor;
+    /**
+     * 时钟宽度
+     */
     private int mClockWid;
+    /**
+     * 时钟最外层圆半径
+     */
     private int mOuterRadius;
+    /**
+     * 时钟圆心x
+     */
     private int mCenterX;
+    /**
+     * 时钟圆心y
+     */
     private int mCenterY;
+    /**
+     * 控件宽
+     */
     private int mWid;
+    /**
+     * 控件高
+     */
     private int mHei;
     private Paint mPaint = new Paint();
+    /**
+     * 最外层圆颜色
+     */
     private int mOuterCircleColor;
+    /**
+     * 内层圆颜色
+     */
     private int mInnerCircleColor;
+    /**
+     * 内层半径
+     */
     private int mInnerRadius;
+    /**
+     * 内外圆的间距
+     */
     private int mSpace = 10;
+    /**
+     * 现在的时间小时
+     */
     private int mHour;
+    /**
+     * 现在的时间分钟
+     */
     private int mMinute;
+    /**
+     * 现在的时间秒
+     */
     private int mSecond;
-    private int mScaleHei;
+    /**
+     * 时钟上刻度值的高度
+     */
+    private int mScaleValueHei;
     private String[] arr = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+    /**
+     * 现在的时间天
+     */
     private int mDay;
+    /**
+     * 现在的时间周几
+     */
     private int mWeek;
+    /**
+     * 现在的时间月
+     */
     private int mMonth;
+    /**
+     * 现在的时间年
+     */
     private int mYear;
+    /**
+     * 是否显示时钟底部的时间文本
+     */
     private boolean mIsShowTime;
+    /**
+     * 真实的周几
+     */
     private String mWeekStr;
+    /**
+     * 时间监听
+     */
     private TimeChangeListener listener;
 
+    /**
+     * handler用来处理定时任务，没隔一秒刷新一次
+     */
     private Handler mHandler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
@@ -89,7 +173,7 @@ public class AlarmClockView extends View {
             mMinuteHandColor = array.getColor(R.styleable.AlarmClockView_minuteHandColor, getResources().getColor(R.color.black));
             mHourHandColor = array.getColor(R.styleable.AlarmClockView_hourHandColor, getResources().getColor(R.color.black));
             mMinuteScaleColor = array.getColor(R.styleable.AlarmClockView_minuteScaleColor, getResources().getColor(R.color.black));
-            mPointScaleColor = array.getColor(R.styleable.AlarmClockView_scaleColor, getResources().getColor(R.color.gray));
+            mPointScaleColor = array.getColor(R.styleable.AlarmClockView_scaleColor, getResources().getColor(R.color.black));
             mDateValueColor = array.getColor(R.styleable.AlarmClockView_dateValueColor, getResources().getColor(R.color.black));
             mIsShowTime = array.getBoolean(R.styleable.AlarmClockView_isShowTime, true);
 
@@ -103,6 +187,7 @@ public class AlarmClockView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mWid = w;
         mHei = h;
+        //使闹钟的宽为控件宽的6/8;
         mClockWid = w * 6 / 8;
         mOuterRadius = mClockWid / 2;
         mInnerRadius = mOuterRadius - mSpace;
@@ -118,6 +203,7 @@ public class AlarmClockView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //设置整体控件的背景为白色背景
         mPaint.setColor(Color.WHITE);
         canvas.drawRect(0, 0, mWid, mHei, mPaint);
 
@@ -144,11 +230,17 @@ public class AlarmClockView extends View {
         }
     }
 
+    /**
+     * 画时钟底部的时间文本
+     *
+     * @param canvas
+     */
     private void drawCurrentTime(Canvas canvas) {
         mPaint.setColor(mDateValueColor);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(40);
 
+        //使当前时间文本正好在时钟底部距离有2 * mSpace的位置
         Paint.FontMetricsInt fm = mPaint.getFontMetricsInt();
         int baseLineY = mCenterY + mOuterRadius - fm.top + 2 * mSpace;
 
@@ -156,6 +248,11 @@ public class AlarmClockView extends View {
         canvas.drawText(time, mCenterX, baseLineY, mPaint);
     }
 
+    /**
+     * 画时钟内的针
+     *
+     * @param canvas
+     */
     private void drawHand(Canvas canvas) {
         //画时针
         canvas.save();
@@ -169,7 +266,7 @@ public class AlarmClockView extends View {
                 //计算时针的偏移量
                 int offset = (int) (((float) mMinute / (float) 60) * (float) 30);
                 canvas.rotate(offset, mCenterX, mCenterY);
-                RectF rectF = new RectF(mCenterX - hourWid / 2, mCenterY - mInnerRadius + mScaleHei + 3 * mSpace, mCenterX + hourWid / 2, mCenterY);
+                RectF rectF = new RectF(mCenterX - hourWid / 2, mCenterY - mInnerRadius + mScaleValueHei + 3 * mSpace, mCenterX + hourWid / 2, mCenterY);
                 canvas.drawRoundRect(rectF, hourWid / 2, hourWid / 2, mPaint);
                 break;
             }
@@ -215,6 +312,11 @@ public class AlarmClockView extends View {
 
     }
 
+    /**
+     * 画时钟内的刻度值
+     *
+     * @param canvas
+     */
     private void drawScaleValue(Canvas canvas) {
         mPaint.setColor(mPointScaleColor);
         mPaint.setStyle(Paint.Style.FILL);
@@ -223,8 +325,9 @@ public class AlarmClockView extends View {
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setTextSize(30);
 
+        //计算刻度值的文本高度
         Paint.FontMetricsInt fm = mPaint.getFontMetricsInt();
-        mScaleHei = fm.bottom - fm.top;
+        mScaleValueHei = fm.bottom - fm.top;
 
         for (int i = 0; i < 12; i++) {
             String degree = (i + 1) + "";
@@ -233,7 +336,13 @@ public class AlarmClockView extends View {
         }
     }
 
-    //计算线段的起始坐标
+    /**
+     * 计算线段的起始坐标
+     *
+     * @param angle
+     * @param length
+     * @return
+     */
     private float[] calculatePoint(float angle, float length) {
         int POINT_BACK_LENGTH = 1;
         float[] points = new float[4];
@@ -261,6 +370,11 @@ public class AlarmClockView extends View {
         return points;
     }
 
+    /**
+     * 画时钟的刻度线
+     *
+     * @param canvas
+     */
     private void drawTickMark(Canvas canvas) {
         for (int i = 0; i < 60; i++) {
             if (i % 5 == 0) {
@@ -286,6 +400,11 @@ public class AlarmClockView extends View {
 
     }
 
+    /**
+     * 画内圆
+     *
+     * @param canvas
+     */
     private void drawInnerCircle(Canvas canvas) {
         mPaint.setColor(mInnerCircleColor);
         mPaint.setStyle(Paint.Style.FILL);
@@ -301,6 +420,11 @@ public class AlarmClockView extends View {
         canvas.drawCircle(mCenterX, mCenterY, mInnerRadius - mSpace, mPaint);
     }
 
+    /**
+     * 画外圆
+     *
+     * @param canvas
+     */
     private void drawOuterCircle(Canvas canvas) {
         mPaint.setColor(mOuterCircleColor);
         mPaint.setStyle(Paint.Style.STROKE);
@@ -310,6 +434,9 @@ public class AlarmClockView extends View {
         canvas.drawCircle(mCenterX, mCenterY, mOuterRadius, mPaint);
     }
 
+    /**
+     * 获取当前时间
+     */
     public void initCurrentTime() {
         Calendar mCalendar = Calendar.getInstance();
         //因为获取的时间总是晚一秒，这里加上这一秒
@@ -333,12 +460,28 @@ public class AlarmClockView extends View {
         invalidate();
     }
 
+    /**
+     * 运行闹钟
+     *
+     * @param listener
+     */
     public void start(TimeChangeListener listener) {
         this.listener = listener;
         mHandler.postDelayed(runnable, 1000);
         initCurrentTime();
     }
 
+    /**
+     * 运行闹钟
+     */
+    public void start() {
+        mHandler.postDelayed(runnable, 1000);
+        initCurrentTime();
+    }
+
+    /**
+     * 停止闹钟
+     */
     public void stop() {
         mHandler.removeCallbacks(runnable);
     }

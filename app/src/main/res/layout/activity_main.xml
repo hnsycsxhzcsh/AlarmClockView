@@ -9,7 +9,6 @@
     <com.alarmclockview.AlarmClockView
         android:id="@+id/clock"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:isShowTime="true" />
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

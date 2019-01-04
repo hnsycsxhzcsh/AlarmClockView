@@ -24,5 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClock.stop();
+            }
+        });
     }
 }
