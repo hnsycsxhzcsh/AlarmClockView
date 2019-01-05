@@ -24,7 +24,7 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
 
 	dependencies {
-         implementation 'com.github.hnsycsxhzcsh:AlarmClockView:v1.3'
+         implementation 'com.github.hnsycsxhzcsh:AlarmClockView:v1.5'
 	}
 
 步骤3. 布局中引用控件
