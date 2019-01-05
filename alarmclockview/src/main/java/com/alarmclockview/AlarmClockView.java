@@ -471,27 +471,35 @@ public class AlarmClockView extends View {
      */
     public void initCurrentTime() {
         Calendar mCalendar = Calendar.getInstance();
+        resetTime(mCalendar);
+        invalidate();
+    }
+
+    /**
+     * 重置时间信息
+     *
+     * @param calendar
+     */
+    private void resetTime(Calendar calendar) {
         //因为获取的时间总是晚一秒，这里加上这一秒
-        mCalendar.add(Calendar.SECOND, 1);
-        mYear = mCalendar.get(Calendar.YEAR);
-        mMonth = mCalendar.get(Calendar.MONTH);
-        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
-        mWeek = mCalendar.get(Calendar.DAY_OF_WEEK);
-        mHour = mCalendar.get(Calendar.HOUR);
-        mMinute = mCalendar.get(Calendar.MINUTE);
-        mSecond = mCalendar.get(Calendar.SECOND);
+        calendar.add(Calendar.SECOND, 1);
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        mHour = calendar.get(Calendar.HOUR);
+        mMinute = calendar.get(Calendar.MINUTE);
+        mSecond = calendar.get(Calendar.SECOND);
 //        apm=0 表示上午，apm=1表示下午。
-        mApm = mCalendar.get(Calendar.AM_PM);
-        Calendar calendar = Calendar.getInstance();
+        mApm = calendar.get(Calendar.AM_PM);
         //1.数组下标从0开始；2.老外的第一天是从星期日开始的
         mWeekStr = arr[calendar.get(calendar.DAY_OF_WEEK) - 1];
 
         System.out.println("现在时间：小时：" + mHour + ",分钟：" + mMinute + ",秒：" + mSecond);
 
         if (listener != null) {
-            listener.onTimeChange(mCalendar);
+            listener.onTimeChange(calendar);
         }
-        invalidate();
     }
 
     /**
@@ -575,5 +583,16 @@ public class AlarmClockView extends View {
 
     public boolean getIsNight() {
         return mIsNight;
+    }
+
+    /**
+     * 自定义时间
+     *
+     * @param calendar
+     */
+    public void setCurrentTime(Calendar calendar) {
+        stop();
+        resetTime(calendar);
+        invalidate();
     }
 }

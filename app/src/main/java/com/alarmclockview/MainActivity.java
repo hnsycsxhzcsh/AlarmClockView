@@ -28,16 +28,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        final int[] offet = {1};
         mClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isNight = mClock.getIsNight();
-                if (isNight) {
-                    mClock.setIsNight(false);
-                } else {
-                    mClock.setIsNight(true);
-                }
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.HOUR, offet[0]++);
+                mClock.setCurrentTime(calendar);
             }
         });
     }
