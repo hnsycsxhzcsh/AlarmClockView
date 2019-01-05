@@ -45,7 +45,15 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 
               }
         });
-	
+
+其他功能：
+
+setIsNight(boolean)  设置是否是夜间效果true是夜间效果，false不是夜间效果
+
+stop()  停止自动运行闹钟
+
+setCurrentTime(Calendar)  自定义当前时间
+
 我的博客地址：https://blog.csdn.net/m0_38074457/article/details/85790550
         
 如果有帮助到大家希望点下右上角Star，谢谢！
