@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="AlarmClockView">
+        <!--外圆颜色-->
         <attr name="outerCircleColor" format="reference|color" />
+        <!--内圆颜色-->
         <attr name="innerCircleColor" format="reference|color" />
+        <!--秒针颜色-->
         <attr name="secondHandColor" format="reference|color" />
+        <!--分针颜色-->
         <attr name="minuteHandColor" format="reference|color" />
+        <!--时针颜色-->
         <attr name="hourHandColor" format="reference|color" />
+        <!--时钟分钟刻度颜色-->
         <attr name="minuteScaleColor" format="reference|color" />
+        <!--时钟分钟5的倍数刻度颜色-->
         <attr name="scaleColor" format="reference|color" />
+        <!--时钟下面实时时间文本颜色-->
         <attr name="dateValueColor" format="reference|color" />
+        <!--是否显示时钟下实时时间文本-->
         <attr name="isShowTime" format="boolean" />
+        <!--时钟占整体控件的大小比例-->
         <attr name="proportion" format="float" />
+        <!--是否设置为夜间模式-->
+        <attr name="night" format="boolean" />
     </declare-styleable>
 
 </resources>

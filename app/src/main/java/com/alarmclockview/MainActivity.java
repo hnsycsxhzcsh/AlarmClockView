@@ -21,15 +21,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeChange(Calendar calendar) {
                 //根据calendar获取当前时间
-
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//                if (hour >= 10 && hour <= 12) {
+//                    mClock.setIsNight(true);
+//                }
             }
         });
 
-//        mClock.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mClock.stop();
-//            }
-//        });
+
+        mClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isNight = mClock.getIsNight();
+                if (isNight) {
+                    mClock.setIsNight(false);
+                } else {
+                    mClock.setIsNight(true);
+                }
+            }
+        });
     }
 }

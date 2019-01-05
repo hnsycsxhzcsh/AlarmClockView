@@ -135,6 +135,12 @@ public class AlarmClockView extends View {
      * 时钟占空间整体的比例
      */
     private float mProportion;
+    /**
+     * 是否为夜间模式
+     */
+    private boolean mIsNight;
+    private Context context;
+    private AttributeSet attrs;
 
     /**
      * handler用来处理定时任务，没隔一秒刷新一次
@@ -147,6 +153,7 @@ public class AlarmClockView extends View {
             initCurrentTime();
         }
     };
+    private int mApm;
 
     public AlarmClockView(Context context) {
         this(context, null);
@@ -168,6 +175,8 @@ public class AlarmClockView extends View {
     }
 
     private void initView(Context context, AttributeSet attrs) {
+        this.context = context;
+        this.attrs = attrs;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.AlarmClockView);
         if (array != null) {
             mOuterCircleColor = array.getColor(R.styleable.AlarmClockView_outerCircleColor, getResources().getColor(R.color.gray));
@@ -180,10 +189,14 @@ public class AlarmClockView extends View {
             mDateValueColor = array.getColor(R.styleable.AlarmClockView_dateValueColor, getResources().getColor(R.color.black));
             mIsShowTime = array.getBoolean(R.styleable.AlarmClockView_isShowTime, true);
             mProportion = array.getFloat(R.styleable.AlarmClockView_proportion, (float) 0.75);
+            mIsNight = array.getBoolean(R.styleable.AlarmClockView_night, false);
             if (mProportion > 1 || mProportion < 0) {
                 mProportion = (float) 0.75;
             }
 
+            if (mIsNight) {
+                setNightColor();
+            }
             array.recycle();
         }
     }
@@ -248,7 +261,13 @@ public class AlarmClockView extends View {
         Paint.FontMetricsInt fm = mPaint.getFontMetricsInt();
         int baseLineY = mCenterY + mOuterRadius - fm.top + 2 * mSpace;
 
-        String time = "" + mYear + "年" + (mMonth + 1) + "月" + mDay + "日" + mWeekStr + mHour + "点" + mMinute + "分" + mSecond + "秒";
+        String apm = "";
+        if (mApm == 0) {
+            apm = "上午";
+        } else {
+            apm = "下午";
+        }
+        String time = "" + mYear + "年" + (mMonth + 1) + "月" + mDay + "日" + mWeekStr + apm + mHour + "点" + mMinute + "分" + mSecond + "秒";
         canvas.drawText(time, mCenterX, baseLineY, mPaint);
     }
 
@@ -420,7 +439,11 @@ public class AlarmClockView extends View {
 
         canvas.drawCircle(mCenterX, mCenterY, mInnerRadius, mPaint);
 
-        mPaint.setColor(Color.WHITE);
+        if (mIsNight) {
+            mPaint.setColor(Color.BLACK);
+        } else {
+            mPaint.setColor(Color.WHITE);
+        }
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setAntiAlias(true);
 
@@ -455,6 +478,8 @@ public class AlarmClockView extends View {
         mHour = mCalendar.get(Calendar.HOUR);
         mMinute = mCalendar.get(Calendar.MINUTE);
         mSecond = mCalendar.get(Calendar.SECOND);
+//        apm=0 表示上午，apm=1表示下午。
+        mApm = mCalendar.get(Calendar.AM_PM);
         Calendar calendar = Calendar.getInstance();
         //1.数组下标从0开始；2.老外的第一天是从星期日开始的
         mWeekStr = arr[calendar.get(calendar.DAY_OF_WEEK) - 1];
@@ -491,5 +516,62 @@ public class AlarmClockView extends View {
      */
     public void stop() {
         mHandler.removeCallbacks(runnable);
+    }
+
+    /**
+     * 设置是否为夜间模式
+     *
+     * @param isNight
+     */
+    public void setIsNight(boolean isNight) {
+        mIsNight = isNight;
+
+        judgeIsNight();
+    }
+
+    /**
+     * 判断isNight属性下颜色值如何选择
+     */
+    private void judgeIsNight() {
+        if (mIsNight) {
+            setNightColor();
+        } else {
+            //这里没有night属性
+            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.AlarmClockView);
+            if (array != null) {
+                mOuterCircleColor = array.getColor(R.styleable.AlarmClockView_outerCircleColor, getResources().getColor(R.color.gray));
+                mInnerCircleColor = array.getColor(R.styleable.AlarmClockView_innerCircleColor, getResources().getColor(R.color.grayInner));
+                mSecondHandColor = array.getColor(R.styleable.AlarmClockView_secondHandColor, getResources().getColor(R.color.green));
+                mMinuteHandColor = array.getColor(R.styleable.AlarmClockView_minuteHandColor, getResources().getColor(R.color.black));
+                mHourHandColor = array.getColor(R.styleable.AlarmClockView_hourHandColor, getResources().getColor(R.color.black));
+                mMinuteScaleColor = array.getColor(R.styleable.AlarmClockView_minuteScaleColor, getResources().getColor(R.color.black));
+                mPointScaleColor = array.getColor(R.styleable.AlarmClockView_scaleColor, getResources().getColor(R.color.black));
+                mDateValueColor = array.getColor(R.styleable.AlarmClockView_dateValueColor, getResources().getColor(R.color.black));
+                mIsShowTime = array.getBoolean(R.styleable.AlarmClockView_isShowTime, true);
+                mProportion = array.getFloat(R.styleable.AlarmClockView_proportion, (float) 0.75);
+                if (mProportion > 1 || mProportion < 0) {
+                    mProportion = (float) 0.75;
+                }
+
+                array.recycle();
+            }
+        }
+    }
+
+    /**
+     * 设置夜晚时的颜色
+     */
+    private void setNightColor() {
+        mMinuteHandColor = Color.WHITE;
+        mHourHandColor = Color.WHITE;
+
+        mMinuteScaleColor = Color.WHITE;
+        mPointScaleColor = Color.WHITE;
+
+        mInnerCircleColor = Color.BLACK;
+    }
+
+    public boolean getIsNight() {
+        return mIsNight;
     }
 }
