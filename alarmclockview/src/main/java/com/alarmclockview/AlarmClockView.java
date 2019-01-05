@@ -267,6 +267,7 @@ public class AlarmClockView extends View {
         } else {
             apm = "下午";
         }
+
         String time = "" + mYear + "年" + (mMonth + 1) + "月" + mDay + "日" + mWeekStr + apm + mHour + "点" + mMinute + "分" + mSecond + "秒";
         canvas.drawText(time, mCenterX, baseLineY, mPaint);
     }
@@ -283,8 +284,7 @@ public class AlarmClockView extends View {
         mPaint.setColor(mHourHandColor);
         mPaint.setStrokeWidth(hourWid);
 
-        for (int i = 1; i <= 12; i++) {
-            canvas.rotate(30, mCenterX, mCenterY);
+        for (int i = 0; i < 12; i++) {
             if (i == mHour) {
                 //计算时针的偏移量
                 int offset = (int) (((float) mMinute / (float) 60) * (float) 30);
@@ -292,6 +292,8 @@ public class AlarmClockView extends View {
                 RectF rectF = new RectF(mCenterX - hourWid / 2, mCenterY - mInnerRadius + mScaleValueHei + 3 * mSpace, mCenterX + hourWid / 2, mCenterY);
                 canvas.drawRoundRect(rectF, hourWid / 2, hourWid / 2, mPaint);
                 break;
+            } else {
+                canvas.rotate(30, mCenterX, mCenterY);
             }
         }
         canvas.restore();
