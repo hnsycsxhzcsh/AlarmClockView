@@ -9,6 +9,8 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     private AlarmClockView mClock;
+    private View mIsNight;
+    private View mStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mClock = findViewById(R.id.clock);
+        mIsNight = findViewById(R.id.bt_isnight);
+        mStart = findViewById(R.id.bt_start);
+
         //运行闹钟
         mClock.start(new TimeChangeListener() {
             @Override
@@ -28,13 +33,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final int[] offet = {1};
-        mClock.setOnClickListener(new View.OnClickListener() {
+//        final int[] offet = {1};
+//        mClock.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.add(Calendar.HOUR, offet[0]++);
+//                mClock.setCurrentTime(calendar);
+//            }
+//        });
+
+        mIsNight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.HOUR, offet[0]++);
-                mClock.setCurrentTime(calendar);
+                boolean isNight = mClock.getIsNight();
+                if (isNight) {
+                    mClock.setIsNight(false);
+                } else {
+                    mClock.setIsNight(true);
+                }
+            }
+        });
+
+        final boolean[] start = {true};
+        mStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (start[0]) {
+                    mClock.stop();
+                    start[0] = false;
+                } else {
+                    mClock.start();
+                    start[0] = true;
+                }
             }
         });
     }

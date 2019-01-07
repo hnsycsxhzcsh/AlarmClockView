@@ -217,6 +217,11 @@ public class AlarmClockView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int modeHei = MeasureSpec.getMode(heightMeasureSpec);
+        if (modeHei == MeasureSpec.UNSPECIFIED || modeHei == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(width, width);
+        }
     }
 
     @Override
@@ -595,4 +600,5 @@ public class AlarmClockView extends View {
         resetTime(calendar);
         invalidate();
     }
+
 }
