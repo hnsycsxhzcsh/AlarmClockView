@@ -3,23 +3,24 @@ package com.alarmclockview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
     private AlarmClockView mClock;
-    private View mIsNight;
-    private View mStart;
+    private Button mIsNight;
+    private Button mStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mClock = findViewById(R.id.clock);
-        mIsNight = findViewById(R.id.bt_isnight);
-        mStart = findViewById(R.id.bt_start);
+        mClock = (AlarmClockView) findViewById(R.id.clock);
+        mIsNight = (Button) findViewById(R.id.bt_isnight);
+        mStart = (Button) findViewById(R.id.bt_start);
 
         //运行闹钟
         mClock.start(new TimeChangeListener() {
