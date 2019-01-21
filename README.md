@@ -70,7 +70,7 @@ setCurrentTime(Calendar)  自定义当前时间
 
 我的博客地址：https://blog.csdn.net/m0_38074457/article/details/85790550
 
-If you are helpful, everyone wants to click on the upper right corner of Star, thank you!
+If my control helps you, please help click on the top right corner, thank you!
 
 如果有帮助到大家希望点下右上角Star，谢谢！
 
