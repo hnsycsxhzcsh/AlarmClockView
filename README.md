@@ -11,36 +11,35 @@ Android自定义控件时钟、钟表AlarmClockView，仿华为手机世界时�
 The method referenced in the project:</br>
 项目中引用的步骤：
 
-Step 1. Add the JitPack repository to your build file</br>
+#### Step 1. Add the JitPack repository to your build file</br>
 步骤1.将JitPack存储库添加到构建文件中</br>
 项目的根build.gradle中添加以下代码：
-
+```Java
  	allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
-
-Step 2. Add the dependency</br>
+```
+#### Step 2. Add the dependency</br>
 步骤2.build.gradle添加依赖项
-
-
+```Java
 	dependencies {
          implementation 'com.github.hnsycsxhzcsh:AlarmClockView:v1.6'
 	}
-
+```
 Step 3. Reference control in layout</br>
-步骤3. 布局中引用控件
-
+#### 步骤3. 布局中引用控件
+```Java
 	<com.alarmclockview.AlarmClockView
         android:id="@+id/clock"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-Step 4. Add listener to the activity</br>
+```
+#### Step 4. Add listener to the activity</br>
 步骤4. activity中添加监听
-
+```Java
     mClock = findViewById(R.id.clock);
     //运行闹钟
     mClock.start(new TimeChangeListener() {
@@ -50,7 +49,7 @@ Step 4. Add listener to the activity</br>
 
               }
         });
-
+```Java
 Other functions:</br>
 其他功能：
 
